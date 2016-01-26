@@ -92,6 +92,14 @@ public class MainTest {
     }
 
     @Test
+    public void toInfinityAndBeyond() {
+        double result = main.addera(Double.MAX_VALUE, Double.MAX_VALUE);
+        assertEquals(Double.POSITIVE_INFINITY, result, errorMargin);
+        result = main.subtrahera(-Double.MAX_VALUE, Double.MAX_VALUE);
+        assertEquals(Double.NEGATIVE_INFINITY, result, errorMargin);
+    }
+
+    @Test
     public void parseIntegerAddition() {
         double result = 0;
         try {
@@ -146,6 +154,34 @@ public class MainTest {
         }
     }
 
+    @Test
+    public void identifyOperatorsTrueString() {
+        String operators = "+-*/";
+        for (int i = 0; i < operators.length(); i++) {
+            assertTrue(main.isOperator("" + operators.charAt(i)));
+        }
+    }
+
+    @Test
+    public void identifyOperatorsFalseString() {
+        //Bygg en sträng med alla tecken förutom operatorerna vi ska stödja.
+        CharsetEncoder ce = Charset.forName(Charset.defaultCharset().name()).newEncoder();
+        StringBuilder result = new StringBuilder();
+        for(char c=0; c<Character.MAX_VALUE; c++)
+        {
+            if(ce.canEncode(c) && c != '+' && c!= '-' && c!= '*' && c!= '/')
+            {
+                result.append(c);
+            }
+        }
+        String notOperators = result.toString();
+
+        //Testa alla tecken i strängen.
+        for (int i = 0; i < notOperators.length(); i++) {
+            assertTrue(!main.isOperator("" + notOperators.charAt(i)));
+        }
+    }
+
     //subtraktion
 
     @Test
@@ -178,15 +214,9 @@ public class MainTest {
         assertEquals(1.5, result, errorMargin);
     }
 
-    @Test
-    public void subtraheraMedBokstaver() {
-        double result = 0;
-        try {
-            result = main.parse("4-b");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertNull(null, result);
+    @Test(expected=Exception.class)
+    public void subtraheraMedBokstaver() throws Exception{
+        main.parse("4-b");
     }
 
 
@@ -200,7 +230,7 @@ public class MainTest {
     @Test
     public void divideraMedNegativaTal() {
         double result = main.dividera(-8, -2);
-        assertEquals(-4, result, 0);
+        assertEquals(4, result, 0);
     }
 
     @Test
@@ -209,15 +239,9 @@ public class MainTest {
         assertEquals(9, result, 0);
     }
 
-    @Test
-    public void divideraMedBokstaver() {
-        double result = 0;
-        try {
-            result = main.parse("4/b");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertNull(null, result);
+    @Test(expected=Exception.class)
+    public void divideraMedBokstaver() throws Exception{
+        main.parse("4/b");
     }
 
     @Test
@@ -251,7 +275,7 @@ public class MainTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertEquals(-4, result, 0);
+        assertEquals(4, result, 0);
     }
 
     @Test
@@ -273,7 +297,7 @@ public class MainTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertEquals(4, result, 0);
+        assertEquals(5, result, 0);
     }
 
     @Test
@@ -284,7 +308,7 @@ public class MainTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertEquals(-4, result, 0);
+        assertEquals(2.5, result, 0);
     }
 
     @Test
@@ -302,6 +326,60 @@ public class MainTest {
         ArrayList<String> result = main.splitInput("   4.3789+56 *-foo/bar  ");
         for (int i = 0; i < facit.size(); i++) {
             assertEquals(facit.get(i), result.get(i));
+        }
+    }
+
+    @Test
+    public void correctNegativeNumbers() {
+        ArrayList<String> facit = new ArrayList<>();
+        facit.add("-2.0");
+        facit.add("-");
+        facit.add("-13.0");
+        facit.add("*");
+        facit.add("-7.0");
+        ArrayList<String> result = main.correctNegativeNumbers(main.splitInput("-2 - -13 * - --7"));
+        for (int i = 0; i < facit.size(); i++) {
+            assertEquals(facit.get(i), result.get(i));
+        }
+    }
+
+    @Test
+    public void parseMultipleOperators() throws Exception{
+        assertEquals(42, main.parse("1+2*30-19"), errorMargin);
+    }
+
+    @Test(expected = Exception.class)
+    public void parseSyntaxError() throws Exception {
+        main.parse("*47");
+    }
+
+    @Test(expected = Exception.class)
+    public void parseSyntaxError2() throws Exception {
+        main.parse("47/");
+    }
+
+    @Test(expected = Exception.class)
+    public void parseSyntaxError3() throws Exception {
+        main.parse("foobar");
+    }
+
+    @Test(expected = Exception.class)
+    public void parseSyntaxError4() throws Exception {
+        main.parse("14 78");
+    }
+
+    @Test(expected = Exception.class)
+    public void parseSyntaxError5() throws Exception {
+        main.parse("-");
+    }
+
+    @Test
+    public void parseEmptySyntaxError() {
+        try {
+            main.parse("");
+            assertTrue(false);
+        } catch (Exception e) {
+            assertEquals(e.getMessage(), "empty list");
         }
     }
 }
