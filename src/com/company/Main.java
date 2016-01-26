@@ -17,13 +17,17 @@ public class Main {
         while (!input.equals("exit")) {
             System.out.print("> ");
             input = scanner.nextLine();
-            result = parse(input);
-            System.out.println(result);
+            try {
+                result = parse(input);
+                System.out.println(result);
+            } catch (Exception e){
+                System.out.println("Luser error: Fingers are too fat.");
+            }
         }
         System.out.println("Hej då");
     }
 
-    public double parse(String input) {
+    public double parse(String input) throws Exception{
         String word1 = "";
         String word2= "";
         for (int i = 0; i < input.length(); i++) {
@@ -37,7 +41,13 @@ public class Main {
             }
         }
         System.out.println(word1 + " " + word2);
-        return addera(Double.valueOf(word1), Double.valueOf(word2));
+        double res;
+        try {
+            res = addera(Double.valueOf(word1), Double.valueOf(word2));
+        } catch (Exception e) {
+            throw e;
+        }
+        return res;
     }
 
     public String parseNextWord(String input) {
@@ -53,5 +63,9 @@ public class Main {
 
     public double addera(double a, double b) {
         return a + b;
+    }
+
+    public double multiplicera(double a, double b) {
+        return a * b;
     }
 }
