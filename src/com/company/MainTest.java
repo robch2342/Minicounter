@@ -109,4 +109,9 @@ public class MainTest {
         assertEquals(23.20, result, errorMargin);
     }
 
+    @Test(expected=Exception.class)
+    public void parseShouldTrowException() throws Exception {
+        main.parse("a+4");
+    }
+
 }
