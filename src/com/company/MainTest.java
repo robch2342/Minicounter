@@ -145,6 +145,51 @@ public class MainTest {
         }
     }
 
+    //subtraktion
+
+    @Test
+    public void subtraheraHeltal() {
+        double result = main.subtrahera(5, 2);
+        assertEquals(3, result, errorMargin);
+    }
+
+    @Test
+    public void subtraheraNegativa() {
+        double result = main.subtrahera(-5, -2);
+        assertEquals(-3, result, errorMargin);
+    }
+
+    @Test
+    public void subtraheraDecimaltal() {
+        double result = main.subtrahera(4.5, 2.6);
+        assertEquals(1.9, result, errorMargin);
+    }
+
+    @Test
+    public void subtraheraDecimaltHeltalResultat() {
+        double result = main.subtrahera(4.5, 2.5);
+        assertEquals(2, result, errorMargin);
+    }
+
+    @Test
+    public void subtraheraHeltalMedDecimalt() {
+        double result = main.subtrahera(4, 2.5);
+        assertEquals(1.5, result, errorMargin);
+    }
+
+    @Test
+    public void subtraheraMedBokstaver() {
+        double result = 0;
+        try {
+            result = main.parse("4-b");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertNull(null, result);
+    }
+
+
+
     @Test
     public void divideraMedHeltal() {
         double result = main.dividera(8, 2);

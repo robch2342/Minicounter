@@ -53,7 +53,7 @@ public class Main {
                 res = dividera(Double.valueOf(word1), Double.valueOf(word2));
             }
             if (operator == '-') {
-                //res = subtrahera(Double.valueOf(word1), Double.valueOf(word2));
+                res = subtrahera(Double.valueOf(word1), Double.valueOf(word2));
             }
             else {
                 throw new Exception();
@@ -100,6 +100,10 @@ public class Main {
 
     public double addera(double a, double b) {
         return a + b;
+    }
+
+    public double subtrahera(double a, double b) {
+        return a - b;
     }
 
     public double multiplicera(double a, double b) {
