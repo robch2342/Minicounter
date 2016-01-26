@@ -15,15 +15,17 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Minicounter 0.13");
         String input = "";
+        System.out.print("> ");
+        input = scanner.nextLine();
         while (!input.equals("exit")) {
-            System.out.print("> ");
-            input = scanner.nextLine();
             try {
                 result = parse(input);
                 System.out.println(result);
             } catch (Exception e){
                 System.out.println("Luser error: Fingers are too fat.");
             }
+            System.out.print("> ");
+            input = scanner.nextLine();
         }
         System.out.println("Hej då");
     }
@@ -48,12 +50,12 @@ public class Main {
         try {
             if (operator == '+') {
                 res = addera(Double.valueOf(word1), Double.valueOf(word2));
-            }
-            if (operator == '/') {
+            } else if (operator == '/') {
                 res = dividera(Double.valueOf(word1), Double.valueOf(word2));
-            }
-            if (operator == '-') {
+            } else if (operator == '-') {
                 res = subtrahera(Double.valueOf(word1), Double.valueOf(word2));
+            } else if (operator == '*') {
+                res = multiplicera(Double.valueOf(word1), Double.valueOf(word2));
             }
             else {
                 throw new Exception();
@@ -74,15 +76,22 @@ public class Main {
         String word = "";
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == ' ') {
-                res.add(word);
-                word = "";
+                if (!word.equals("")) {
+                    res.add(word);
+                    word = "";
+                }
             } else if (isOperator(input.charAt(i))) {
                 if (!word.equals("")) {
                     res.add(word);
                     word = "";
                 }
                 res.add("" + input.charAt(i));
+            } else {
+                word += input.charAt(i);
             }
+        }
+        if (!word.equals("")) {
+            res.add(word);
         }
         return res;
     }

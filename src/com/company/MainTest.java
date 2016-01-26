@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -284,5 +285,23 @@ public class MainTest {
             e.printStackTrace();
         }
         assertEquals(-4, result, 0);
+    }
+
+    @Test
+    public void splitInput() {
+        ArrayList<String> facit = new ArrayList<>();
+        assertEquals(0, main.splitInput("").size());
+        facit.add("4.3789");
+        facit.add("+");
+        facit.add("56");
+        facit.add("*");
+        facit.add("-");
+        facit.add("foo");
+        facit.add("/");
+        facit.add("bar");
+        ArrayList<String> result = main.splitInput("   4.3789+56 *-foo/bar  ");
+        for (int i = 0; i < facit.size(); i++) {
+            assertEquals(facit.get(i), result.get(i));
+        }
     }
 }
