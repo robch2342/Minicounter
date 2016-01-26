@@ -4,6 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+
 import static org.junit.Assert.*;
 
 /**
@@ -112,6 +115,34 @@ public class MainTest {
     @Test(expected=Exception.class)
     public void parseShouldTrowException() throws Exception {
         main.parse("a+4");
+    }
+
+    @Test
+    public void identifyOperatorsTrue() {
+        String operators = "+-*/";
+        for (int i = 0; i < operators.length(); i++) {
+            assertTrue(main.isOperator(operators.charAt(i)));
+        }
+    }
+
+    @Test
+    public void identifyOperatorsFalse() {
+        //Bygg en sträng med alla tecken förutom operatorerna vi ska stödja.
+        CharsetEncoder ce = Charset.forName(Charset.defaultCharset().name()).newEncoder();
+        StringBuilder result = new StringBuilder();
+        for(char c=0; c<Character.MAX_VALUE; c++)
+        {
+            if(ce.canEncode(c) && c != '+' && c!= '-' && c!= '*' && c!= '/')
+            {
+                result.append(c);
+            }
+        }
+        String notOperators = result.toString();
+
+        //Testa alla tecken i strängen.
+        for (int i = 0; i < notOperators.length(); i++) {
+            assertTrue(!main.isOperator(notOperators.charAt(i)));
+        }
     }
 
 }
