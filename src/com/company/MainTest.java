@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
  */
 public class MainTest {
     private Main main;
+    private double errorMargin = 0.0000001;
 
     @Before
     public void setUp() throws Exception {
@@ -25,12 +26,24 @@ public class MainTest {
     @Test
     public void adderaEttOchTre() {
         double result = main.addera(1, 3);
-        assertEquals(4, result, 0.000000001);
+        assertEquals(4, result, errorMargin);
     }
 
     @Test
     public void adderaDecimaltal() {
         double result = main.addera(3.14, 4.20);
-        assertEquals(7.34, result, 0.000000001);
+        assertEquals(7.34, result, errorMargin);
+    }
+
+    @Test
+    public void parseIntegerAddition() {
+        double result = main.parse("4+19");
+        assertEquals(23, result, errorMargin);
+    }
+
+    @Test
+    public void parseFloatAddition() {
+        double result = main.parse("4.20+19");
+        assertEquals(23.20, result, errorMargin);
     }
 }
