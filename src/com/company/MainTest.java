@@ -114,4 +114,99 @@ public class MainTest {
         main.parse("a+4");
     }
 
+    @Test
+    public void divideraMedHeltal() {
+        double result = main.dividera(8, 2);
+        assertEquals(4, result, 0);
+    }
+
+    @Test
+    public void divideraMedNegativaTal() {
+        double result = main.dividera(-8, -2);
+        assertEquals(-4, result, 0);
+    }
+
+    @Test
+    public void divideraMedDecimalTal() {
+        double result = main.dividera(4.5, 0.5);
+        assertEquals(9, result, 0);
+    }
+
+    @Test
+    public void divideraMedBokstaver() {
+        double result = 0;
+        try {
+            result = main.parse("4/b");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertNull(null, result);
+    }
+
+    @Test
+    public void divideraMedHeltalKvot() {
+        double result = main.dividera(8, 2);
+        assertEquals(4, result, 0);
+    }
+
+    @Test
+    public void divideraMedDecimalKvot() {
+        double result = main.dividera(10, 4);
+        assertEquals(2.5, result, 0);
+    }
+
+    @Test
+    public void divideraMedHeltalParse() {
+        double result = 0;
+        try {
+            result = main.parse("8/2");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertEquals(4, result, 0);
+    }
+
+    @Test
+    public void divideraMedNegativaTalParse() {
+        double result = 0;
+        try {
+            result = main.parse("-8/-2");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertEquals(-4, result, 0);
+    }
+
+    @Test
+    public void divideraMedDecimalTalParse() {
+        double result = 0;
+        try {
+            result = main.parse("4.5/0.5");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertEquals(9, result, 0);
+    }
+
+    @Test
+    public void divideraMedHeltalKvotParse() {
+        double result = 0;
+        try {
+            result = main.parse("10/2");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertEquals(4, result, 0);
+    }
+
+    @Test
+    public void divideraMedDecimalKvotParse() {
+        double result = 0;
+        try {
+            result = main.parse("10/4");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertEquals(-4, result, 0);
+    }
 }

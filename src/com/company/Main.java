@@ -29,9 +29,11 @@ public class Main {
 
     public double parse(String input) throws Exception{
         String word1 = "";
+        char operator = 'u';
         String word2= "";
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == '+'){
+            if (isOperator(input.charAt(i))){
+                operator = input.charAt(i);
                 if(word1.equals("")) {
                     word1 = word2;
                     word2 = "";
@@ -43,7 +45,19 @@ public class Main {
         System.out.println(word1 + " " + word2);
         double res;
         try {
-            res = addera(Double.valueOf(word1), Double.valueOf(word2));
+            if (operator == '+') {
+                res = addera(Double.valueOf(word1), Double.valueOf(word2));
+            }
+            if (operator == '/') {
+                res = dividera(Double.valueOf(word1), Double.valueOf(word2));
+            }
+            if (operator == '-') {
+                //res = subtrahera(Double.valueOf(word1), Double.valueOf(word2));
+            }
+            else {
+                throw new Exception();
+            }
+
         } catch (Exception e) {
             throw e;
         }
@@ -67,5 +81,10 @@ public class Main {
 
     public double multiplicera(double a, double b) {
         return a * b;
+    }
+
+    public double dividera(double a, double b) {
+        return a/b;
+
     }
 }
