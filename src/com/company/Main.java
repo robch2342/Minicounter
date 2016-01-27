@@ -52,12 +52,23 @@ public class Main {
 
     public double parse(String input) throws Exception {
 
-        ArrayList<String> expr = correctNegativeNumbers(splitInput(input));
+        ArrayList<String> expr = splitInput(input);
+
+        //Byt ut last mot resultatet av förra uträkningen.
+        for (int i = 0; i < expr.size(); i++) {
+            if(expr.get(i).equals("last")) {
+                expr.set(i, Double.toString(result));
+            }
+        }
+
+        expr = correctNegativeNumbers(expr);
 
         //Kolla om listan är tom.
         if (expr.size() == 0) {
             throw new Exception("empty list");
         }
+
+
 
         boolean done = false;
 
@@ -252,7 +263,7 @@ public class Main {
                 res /= a;
             }
         } else {
-            return 1;
+            return a / Math.abs(a);
         }
         return res;
     }

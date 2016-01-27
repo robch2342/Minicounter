@@ -382,4 +382,14 @@ public class MainTest {
             assertEquals(e.getMessage(), "empty list");
         }
     }
+
+    @Test
+    public void parseLastoperator() throws Exception{
+        double result = main.parse("last -13*5");
+        assertEquals(-65, result, errorMargin);
+        result = main.parse("-10 * last+50-690");
+        assertEquals(10, result, errorMargin);
+        result = main.parse("last");
+        assertEquals(10, result, errorMargin);
+    }
 }
