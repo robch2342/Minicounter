@@ -121,7 +121,7 @@ public class MainTest {
         assertEquals(23.20, result, errorMargin);
     }
 
-    @Test(expected=Exception.class)
+    @Test(expected = Exception.class)
     public void parseShouldTrowException() throws Exception {
         main.parse("a+4");
     }
@@ -139,10 +139,8 @@ public class MainTest {
         //Bygg en sträng med alla tecken förutom operatorerna vi ska stödja.
         CharsetEncoder ce = Charset.forName(Charset.defaultCharset().name()).newEncoder();
         StringBuilder result = new StringBuilder();
-        for(char c=0; c<Character.MAX_VALUE; c++)
-        {
-            if(ce.canEncode(c) && c != '+' && c!= '-' && c!= '*' && c!= '/' && c!= '^')
-            {
+        for (char c = 0; c < Character.MAX_VALUE; c++) {
+            if (ce.canEncode(c) && c != '+' && c != '-' && c != '*' && c != '/' && c != '^') {
                 result.append(c);
             }
         }
@@ -167,10 +165,8 @@ public class MainTest {
         //Bygg en sträng med alla tecken förutom operatorerna vi ska stödja.
         CharsetEncoder ce = Charset.forName(Charset.defaultCharset().name()).newEncoder();
         StringBuilder result = new StringBuilder();
-        for(char c=0; c<Character.MAX_VALUE; c++)
-        {
-            if(ce.canEncode(c) && c != '+' && c!= '-' && c!= '*' && c!= '/' && c!= '^')
-            {
+        for (char c = 0; c < Character.MAX_VALUE; c++) {
+            if (ce.canEncode(c) && c != '+' && c != '-' && c != '*' && c != '/' && c != '^') {
                 result.append(c);
             }
         }
@@ -214,11 +210,10 @@ public class MainTest {
         assertEquals(1.5, result, errorMargin);
     }
 
-    @Test(expected=Exception.class)
-    public void subtraheraMedBokstaver() throws Exception{
+    @Test(expected = Exception.class)
+    public void subtraheraMedBokstaver() throws Exception {
         main.parse("4-b");
     }
-
 
 
     @Test
@@ -239,8 +234,8 @@ public class MainTest {
         assertEquals(9, result, 0);
     }
 
-    @Test(expected=Exception.class)
-    public void divideraMedBokstaver() throws Exception{
+    @Test(expected = Exception.class)
+    public void divideraMedBokstaver() throws Exception {
         main.parse("4/b");
     }
 
@@ -313,7 +308,7 @@ public class MainTest {
 
     @Test
     public void splitInput() {
-        ArrayList<String> facit = new ArrayList<>();
+        ArrayList<String> facit = new ArrayList<String>();
         assertEquals(0, main.splitInput("").size());
         facit.add("4.3789");
         facit.add("+");
@@ -331,7 +326,7 @@ public class MainTest {
 
     @Test
     public void correctNegativeNumbers() {
-        ArrayList<String> facit = new ArrayList<>();
+        ArrayList<String> facit = new ArrayList<String>();
         facit.add("-2.0");
         facit.add("-");
         facit.add("-13.0");
@@ -344,7 +339,7 @@ public class MainTest {
     }
 
     @Test
-    public void parseMultipleOperators() throws Exception{
+    public void parseMultipleOperators() throws Exception {
         assertEquals(42, main.parse("1+2*30-19"), errorMargin);
     }
 
@@ -381,5 +376,66 @@ public class MainTest {
         } catch (Exception e) {
             assertEquals(e.getMessage(), "empty list");
         }
+    }
+    //Upphöjt
+
+    @Test
+    public void upphojttillheltal() throws Exception {
+        double result = main.upphojttill(2, 3);
+        assertEquals(8, result, errorMargin);
+        result = main.upphojttill(0, 0);
+        assertEquals(1, result, errorMargin);
+        result = main.upphojttill(1, 50000);
+        assertEquals(1, result, errorMargin);
+    }
+
+    @Test
+    public void upphojttillnegativatal() throws Exception {
+        double result = main.upphojttill(-2, -13);
+        assertEquals(-0.000122070312, result, errorMargin);
+        result = main.upphojttill(-0, -0);
+        assertEquals(Double.NaN, result, errorMargin);
+        result = main.upphojttill(-1, -50000);
+        assertEquals(-1, result, errorMargin);
+    }
+
+    @Test
+    public void upphojttilldecimaltal() throws Exception {
+        double result = main.upphojttill(1.5, 2.0);
+        assertEquals(2.25, result, errorMargin);
+        result = main.upphojttill(1.0, 3.0);
+        assertEquals(1.0, result, errorMargin);
+        result = main.upphojttill(15.1555, 2.0);
+        assertEquals(229.68918025, result, errorMargin);
+        result = main.upphojttill(-1.43, -10.00);
+        assertEquals(-0.0279665971, result, errorMargin);
+    }
+
+    @Test(expected = Exception.class)
+    public void upphojtilldecialtalerror() throws Exception {
+        double result = main.upphojttill(1.5, 2.4);
+
+    }
+    @Test(expected = Exception.class)
+    public void upphöjrillParse() throws Exception{
+        double result = 0;
+            result = main.parse("a ^ 2");
+        }
+    @Test(expected = Exception.class)
+    public void upphöjrillParse2() throws Exception{
+        double result = 0;
+        result = main.parse("2 ^ a");
+    }
+    @Test
+    public void upphöjrillParse3() throws Exception{
+        double result = 0;
+        result = main.parse("2 ^ 2");
+        assertEquals(4, result, errorMargin);
+        result = main.parse("24 ^ 4");
+        assertEquals(331776, result, errorMargin);
+        result = main.parse("0.4 ^ 2");
+        assertEquals(0.16, result, errorMargin);
+        result = main.parse("-2 ^ -2");
+        assertEquals(-0.25, result, errorMargin);
     }
 }

@@ -197,7 +197,7 @@ public class Main {
     }
 
     public ArrayList<String> splitInput(String input) {
-        ArrayList<String> res = new ArrayList<>();
+        ArrayList<String> res = new ArrayList<String>();
         String word = "";
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == ' ') {
