@@ -128,7 +128,7 @@ public class MainTest {
 
     @Test
     public void identifyOperatorsTrue() {
-        String operators = "+-*/";
+        String operators = "+-*/^";
         for (int i = 0; i < operators.length(); i++) {
             assertTrue(main.isOperator(operators.charAt(i)));
         }
@@ -141,7 +141,7 @@ public class MainTest {
         StringBuilder result = new StringBuilder();
         for(char c=0; c<Character.MAX_VALUE; c++)
         {
-            if(ce.canEncode(c) && c != '+' && c!= '-' && c!= '*' && c!= '/')
+            if(ce.canEncode(c) && c != '+' && c!= '-' && c!= '*' && c!= '/' && c!= '^')
             {
                 result.append(c);
             }
@@ -156,7 +156,7 @@ public class MainTest {
 
     @Test
     public void identifyOperatorsTrueString() {
-        String operators = "+-*/";
+        String operators = "+-*/^";
         for (int i = 0; i < operators.length(); i++) {
             assertTrue(main.isOperator("" + operators.charAt(i)));
         }
@@ -169,7 +169,7 @@ public class MainTest {
         StringBuilder result = new StringBuilder();
         for(char c=0; c<Character.MAX_VALUE; c++)
         {
-            if(ce.canEncode(c) && c != '+' && c!= '-' && c!= '*' && c!= '/')
+            if(ce.canEncode(c) && c != '+' && c!= '-' && c!= '*' && c!= '/' && c!= '^')
             {
                 result.append(c);
             }

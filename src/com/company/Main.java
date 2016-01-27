@@ -61,6 +61,29 @@ public class Main {
 
         boolean done = false;
 
+        //Räkna ut alla upphöjningar.
+        while (!done) {
+            done = true;
+            //System.out.println(expr);
+            for (int i = 0; i < expr.size(); i++) {
+                if (expr.get(i).equals("^")) {
+                    try{
+                        expr.set(i, Double.toString(upphojttill(
+                                Double.valueOf(expr.get(i - 1)),
+                                Double.valueOf(expr.get(i + 1)))));
+                        expr.remove(i + 1);
+                        expr.remove(i - 1);
+                        done = false;
+                        break;
+                    } catch (Exception e) {
+                        throw new Exception(buildErrorMessage(expr, i));
+                    }
+                }
+            }
+        }
+
+        done = false;
+
         //Räkna ut alla multiplikationer och divisioner först.
         //Loopen repeterar tills det inte finns några fler uträkningar att göra.
         while (!done) {
@@ -163,7 +186,7 @@ public class Main {
     }
 
     public boolean isOperator(char c) {
-        return c == '+' || c == '-' || c == '*' || c == '/';
+        return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
     }
 
     public boolean isOperator(String s) {
@@ -213,5 +236,24 @@ public class Main {
     public double dividera(double a, double b) {
         return a/b;
 
+    }
+
+    public double upphojttill(double a, double b) throws Exception{
+        long exp = Math.round(b);
+        double res = 1;
+        if (b != 0 && b % exp != 0) {
+            throw new Exception();
+        } else if (exp > 0) {
+            for (long i = 0; i < exp; i++) {
+                res *= a;
+            }
+        }  else if (exp < 0) {
+            for (long i = 0; i > exp; i--) {
+                res /= a;
+            }
+        } else {
+            return 1;
+        }
+        return res;
     }
 }
