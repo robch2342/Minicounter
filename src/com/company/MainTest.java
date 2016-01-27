@@ -37,6 +37,10 @@ public class MainTest {
     public void adderaDecimaltal() {
         double result = main.addera(3.14, 4.20);
         assertEquals(7.34, result, errorMargin);
+        result = main.addera(0.5, 0.5);
+        assertEquals(1, result, errorMargin);
+        result = main.addera(2, 0.5);
+        assertEquals(2.5, result, errorMargin);
     }
 
     @Test
@@ -196,17 +200,9 @@ public class MainTest {
     public void subtraheraDecimaltal() {
         double result = main.subtrahera(4.5, 2.6);
         assertEquals(1.9, result, errorMargin);
-    }
-
-    @Test
-    public void subtraheraDecimaltHeltalResultat() {
-        double result = main.subtrahera(4.5, 2.5);
+        result = main.subtrahera(4.5, 2.5);
         assertEquals(2, result, errorMargin);
-    }
-
-    @Test
-    public void subtraheraHeltalMedDecimalt() {
-        double result = main.subtrahera(4, 2.5);
+        result = main.subtrahera(4, 2.5);
         assertEquals(1.5, result, errorMargin);
     }
 
