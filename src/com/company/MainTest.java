@@ -388,39 +388,41 @@ public class MainTest {
 
     @Test
     public void upphojttillheltal() throws Exception {
-        double result = main.upphojttill(2, 3);
+        double result = main.upphojtTill(2, 3);
         assertEquals(8, result, errorMargin);
-        result = main.upphojttill(0, 0);
+        result = main.upphojtTill(0, 0);
         assertEquals(Double.NaN, result, errorMargin);
-        result = main.upphojttill(1, 50000);
+        result = main.upphojtTill(1, 50000);
         assertEquals(1, result, errorMargin);
     }
 
     @Test
     public void upphojttillnegativatal() throws Exception {
-        double result = main.upphojttill(-2, -13);
+        double result = main.upphojtTill(-2, -13);
         assertEquals(-0.000122070312, result, errorMargin);
-        result = main.upphojttill(-0, -0);
+        result = main.upphojtTill(-0, -0);
         assertEquals(Double.NaN, result, errorMargin);
-        result = main.upphojttill(-1, -50000);
+        result = main.upphojtTill(-1, 0);
+        assertEquals(1, result, errorMargin);
+        result = main.upphojtTill(-1, -50000);
         assertEquals(1, result, errorMargin);
     }
 
     @Test
     public void upphojttilldecimaltal() throws Exception {
-        double result = main.upphojttill(1.5, 2.0);
+        double result = main.upphojtTill(1.5, 2.0);
         assertEquals(2.25, result, errorMargin);
-        result = main.upphojttill(1.0, 3.0);
+        result = main.upphojtTill(1.0, 3.0);
         assertEquals(1.0, result, errorMargin);
-        result = main.upphojttill(15.1555, 2.0);
+        result = main.upphojtTill(15.1555, 2.0);
         assertEquals(229.68918025, result, errorMargin);
-        result = main.upphojttill(-1.43, -10.00);
+        result = main.upphojtTill(-1.43, -10.00);
         assertEquals(0.0279665971, result, errorMargin);
     }
 
     @Test(expected = Exception.class)
     public void upphojtilldecialtalerror() throws Exception {
-        double result = main.upphojttill(1.5, 2.4);
+        double result = main.upphojtTill(1.5, 2.4);
 
     }
     @Test(expected = Exception.class)

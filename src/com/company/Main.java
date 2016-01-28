@@ -78,7 +78,7 @@ public class Main {
             for (int i = 0; i < expr.size(); i++) {
                 if (expr.get(i).equals("^")) {
                     try{
-                        expr.set(i, Double.toString(upphojttill(
+                        expr.set(i, Double.toString(upphojtTill(
                                 Double.valueOf(expr.get(i - 1)),
                                 Double.valueOf(expr.get(i + 1)))));
                         expr.remove(i + 1);
@@ -250,7 +250,7 @@ public class Main {
 
     }
 
-    public double upphojttill(double a, double b) throws Exception{
+    public double upphojtTill(double a, double b) throws Exception{
         long exp = Math.round(b);
         double res = 1;
         if (b != 0 && b % exp != 0) {
@@ -264,7 +264,7 @@ public class Main {
                 res /= a;
             }
         } else {
-            return a / Math.abs(a);
+            return a/a;
         }
         return res;
     }
