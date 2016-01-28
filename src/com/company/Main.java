@@ -19,8 +19,7 @@ public class Main {
         input = scanner.nextLine();
         while (!input.equals("exit")) {
             try {
-                result = parse(input);
-                System.out.println(result);
+                System.out.println(parse(input));
             } catch (Exception e){
                 if (e.getMessage().equals("empty list")) {
                     System.out.println("Write something, you twat!");
@@ -176,7 +175,9 @@ public class Main {
         //Kolla att vi fick en lista med en enda sträng.
         if (expr.size() == 1) {
             try{
-                return Double.valueOf(expr.get(0));
+                Double res = Double.valueOf(expr.get(0));
+                result = res;
+                return res;
             } catch (Exception e) {
                 throw new Exception(input);
             }
@@ -208,7 +209,7 @@ public class Main {
     }
 
     public ArrayList<String> splitInput(String input) {
-        ArrayList<String> res = new ArrayList<>();
+        ArrayList<String> res = new ArrayList<String>();
         String word = "";
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == ' ') {
