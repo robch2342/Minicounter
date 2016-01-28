@@ -4,6 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ import static org.junit.Assert.*;
 /**
  * Created by robin on 2016-01-25.
  */
-public class MainTest {
+public class MainTest{
     private Main main;
     private double errorMargin = 0.0000001;
 
@@ -337,6 +340,7 @@ public class MainTest {
     @Test
     public void parseMultipleOperators() throws Exception {
         assertEquals(42, main.parse("1+2*30-19"), errorMargin);
+        assertEquals(-16.4, main.parse("-3.14/2*20+3*5"), errorMargin);
     }
 
     @Test(expected = Exception.class)

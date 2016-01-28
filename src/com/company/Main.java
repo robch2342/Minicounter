@@ -14,7 +14,7 @@ public class Main {
     public void prompt() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Minicounter 0.13");
-        String input = "";
+        String input;
         System.out.print("> ");
         input = scanner.nextLine();
         while (!input.equals("exit")) {
