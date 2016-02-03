@@ -21,10 +21,12 @@ public class Main {
             try {
                 System.out.println(parse(input));
             } catch (Exception e){
-                if (e.getMessage().equals("empty list")) {
+                if (e.getMessage() != null && e.getMessage().equals("empty list")) {
                     System.out.println("Write something, you twat!");
-                } else {
+                } else if(e.getMessage() != null){
                     System.out.println("Syntax error: " + e.getMessage());
+                } else {
+                    System.out.println("Syntax error");
                 }
             }
             System.out.print("> ");

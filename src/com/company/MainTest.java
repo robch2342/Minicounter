@@ -4,9 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
@@ -450,5 +448,22 @@ public class MainTest{
         assertEquals(0.16, result, errorMargin);
         result = main.parse("-2 ^ -2");
         assertEquals(0.25, result, errorMargin);
+    }
+
+    @Test
+    public void testParse() throws Exception{
+        ProcessBuilder pb = new ProcessBuilder().command("java", "-jar", "out/artifacts/Minicounter/Minicounter.jar").redirectErrorStream(true);
+        Process process = pb.start();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        assertEquals("Minicounter 0.13", reader.readLine());
+
+        writer.write("2*3 +  5\n");
+        writer.flush();
+        assertEquals("> 11.0", reader.readLine());
+
+        writer.write("exit\n");
+        writer.flush();
+        assertEquals("> Hej då", reader.readLine());
     }
 }
